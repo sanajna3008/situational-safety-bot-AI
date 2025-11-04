@@ -2,27 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Situational Safety Bot</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="chat-container">
-    <div class="header">🛡️ Situational Safety Bot</div>
-    <div class="bot-msg"
-    <div id= "output" class="chat-box"></div>
-      <div class="bot-msg">Hello! I’m your Safety Assistant 👋<br>
-      I can give safety tips for various situations like <b>fire</b>, <b>earthquake</b>, <b>stranger</b>, <b>online</b>, and <b>travel</b>.<br>Type a situation to get started.</div>
+    <div class="header">🤖 Situational Safety Bot</div>
+
+    <div class="bot-msg">
+      Hello! I'm your Safety Assistant. <br>
+      I can give safety tips for various situations like 
+      <b>fire</b>, <b>earthquake</b>, <b>stranger</b>, or <b>online safety</b>.
     </div>
-  <div id="output" class="chat-box"></div>
+
+    <!-- ✅ Only one output div -->
+    <div id="output" class="chat-box"></div>
+
     <div class="input-area">
-      <input type="text" id="user-input" placeholder="Enter a situation..." onkeydown="if(event.key === 'Enter'){ getResponse(); }" />
+      <input type="text" id="user-input" placeholder="Enter a situation..."
+             onkeydown="if(event.key === 'Enter') getResponse()">
       <button onclick="getResponse()">Send</button>
     </div>
   </div>
+
   <script src="script.js"></script>
 </body>
-
 </html>
+  
 
 
