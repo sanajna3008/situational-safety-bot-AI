@@ -8,13 +8,77 @@
     const API_KEY = "AIzaSyCaunMTGhqhni-2AXRiBhtfVKqnqBgqTu4;  // ← Replace with your key
 
     const genAI = new GoogleGenerativeAI(API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+  async function sendMessage() {
+    let userInput = document.getElementById("userInput").value;
+
+    const result = await model.generateContent(userInput);
+    const response = await result.response.text();
+
+    document.getElementById("chatBox").innerHTML +=
+      <p><b>You:</b> ${userInput}</p>;
+    document.getElementById("chatBox").innerHTML +=
+      <p><b>Bot:</b> ${response}</p>;
+
+    document.getElementById("userInput").value = "";
+  }
+</script>
     window.genAI = genAI;
+    
 </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Situational Safety Bot</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+  <body>
+    <body>
+
+    <div id="chatBox" style="padding:10px; border:1px solid #ccc; height:300px; overflow-y:auto;">
+    </div>
+
+    <br>
+
+    <input id="userInput" type="text" placeholder="Type your message…" style="width:70%; padding:8px;">
+    <button onclick="handleChat()" style="padding:8px;">Send</button>
+
+    <script>
+        import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
+const API_KEY = ""AIzaSyCaunMTGhqhni-2AXRiBhtfVKqnqBgqTu4;
+const genAI = new GoogleGenerativeAI(API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+async function sendToGemini(message) {
+    try {
+        const result = await model.generateContent(message);
+        const response = await result.response;
+        return response.text();
+    } catch (err) {
+        return "Error: Something went wrong. Check your API key.";
+    }
+}
+
+async function handleChat() {
+    const inputField = document.getElementById("userInput");
+    const chatBox = document.getElementById("chatBox");
+
+    const message = inputField.value.trim();
+    if (!message) return;
+
+    chatBox.innerHTML += <p><strong>You:</strong> ${message}</p>;
+
+    const reply = await sendToGemini(message);
+
+    chatBox.innerHTML += <p><strong>Bot:</strong> ${reply}</p>;
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    inputField.value = "";
+}
+    </script>
+
+</body>
+</html>
   <div class="chat-container">
     <div class="header">🤖 Situational Safety Bot</div>
 
@@ -30,7 +94,7 @@
     <div class="input-area">
       <input type="text" id="user-input" placeholder="Enter a situation..."
              onkeydown="if(event.key === 'Enter') getResponse()">
-      <button onclick="getResponse()">Send</button>
+      <button onclick="sendMessage()">Send</button>
     </div>
   </div>
 
@@ -56,8 +120,10 @@ async function handleChat() {
 }
 </script>
 </body>
+  
 </html>
   
+
 
 
 
